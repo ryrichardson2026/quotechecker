@@ -781,9 +781,91 @@
     const zip = document.getElementById('fieldZip').value.trim();
     if (!name || !contact) { alert('Please enter your name and a way to reach you.'); return; }
 
-    // TODO: replace with Make.com webhook URL
-    const payload = { name, contact, zip, ...S, ts: new Date().toISOString() };
-    console.log('Lead:', payload);
+    // Determine phone vs email
+    const isPhone = /^[\d\s\(\)\-\+]{7,}$/.test(contact);
+
+    // Build quote range string for repair_range / replacement_range fields
+    function getBand() {
+      if (!S.amount) return null;
+      if (S.bucket === 'unsure') return null;
+      if (S.jobType === 'ac-install') return AC_INSTALL[S.size]?.[S.duct] || null;
+      if (S.jobType === 'furnace-install') {
+        const base = FURNACE_BASE[S.size]?.[S.efficiency];
+        const mod = DUCT_MOD[S.duct];
+        if (!base || !mod) return null;
+        return { low: base.low + mod.low, high: base.high + mod.high };
+      }
+      if (S.jobType === 'ac-repair') return AC_REPAIR[S.bucket]?.[S.age]?.[S.hours] || null;
+      if (S.jobType === 'heat-repair') return HEAT_REPAIR[S.bucket]?.[S.age]?.[S.hours] || null;
+      return null;
+    }
+
+    const band = getBand();
+    const rangeStr = band ? `$${band.low.toLocaleString()} – $${band.high.toLocaleString()}` : 'Unable to determine';
+
+    // Tier label
+    let tier = 'unknown';
+    if (band && S.amount) {
+      if (S.amount < band.low) tier = 'low';
+      else if (S.amount <= band.high) tier = 'fair';
+      else tier = 'high';
+    }
+    if (S.bucket === 'unsure') tier = 'unsure';
+
+    // Map to existing Make/Sheets field schema
+    const payload = {
+      // Contact fields — matches existing sheet columns
+      timestamp:   new Date().toISOString(),
+      name:        name,
+      phone:       isPhone ? contact : '',
+      email:       !isPhone ? contact : '',
+      zip:         zip,
+
+      // Lead classification
+      lead_type:   tier === 'high' ? 'hot' : tier === 'fair' ? 'warm' : 'cold',
+      source:      'quotecheck.us',
+
+      // System info — maps to system_type, problem, size, age
+      system_type: jobLabel(S.jobType),
+      problem:     S.bucket === 'unsure'
+                     ? 'Unknown — contractor diagnosis unclear'
+                     : S.bucket === 'minor'
+                       ? 'Minor component repair'
+                       : S.bucket === 'major'
+                         ? 'Major component repair'
+                         : S.jobType?.includes('install') ? 'New installation' : '',
+      size:        S.size ? { small:'Under 1,200 sq ft', medium:'1,200–2,400 sq ft', large:'Over 2,400 sq ft' }[S.size] : '',
+      age:         S.age  ? { young:'Under 10 years', mid:'10–15 years', old:'Over 15 years' }[S.age] : '',
+      city:        zip,   // city unknown, use zip as proxy
+
+      // Quote-specific fields — use repair_range for the quote they received
+      repair_range:      S.jobType?.includes('repair') ? `Submitted quote: $${S.amount?.toLocaleString()} | Fair range: ${rangeStr}` : '',
+      replacement_range: S.jobType?.includes('install') ? `Submitted quote: $${S.amount?.toLocaleString()} | Fair range: ${rangeStr}` : '',
+
+      // Recommendation — maps to recommendation field
+      recommendation: (() => {
+        if (tier === 'high') return `Quote of $${S.amount?.toLocaleString()} is above the typical range (${rangeStr}). Strong candidate for a second quote.`;
+        if (tier === 'fair') return `Quote of $${S.amount?.toLocaleString()} is within the typical range (${rangeStr}). Second quote still worthwhile.`;
+        if (tier === 'low')  return `Quote of $${S.amount?.toLocaleString()} is below typical range (${rangeStr}). May be missing scope.`;
+        return `Quote amount $${S.amount?.toLocaleString()} — part unknown, diagnosis confirmation needed.`;
+      })(),
+
+      // Extra context
+      notes: [
+        S.duct       ? `Ductwork: ${{ existing:'Good condition', modify:'Needs modification', none:'None/full install' }[S.duct]}` : '',
+        S.efficiency ? `Efficiency: ${{ standard:'Standard 80% AFUE', higheff:'High-efficiency 95%+', unsure:'Not specified' }[S.efficiency]}` : '',
+        S.hours      ? `After-hours call: ${S.hours === 'yes' ? 'Yes' : 'No'}` : '',
+      ].filter(Boolean).join(' | '),
+
+      contact_preference: isPhone ? 'Phone' : 'Email',
+      time_preference:    '',
+    };
+
+    fetch('https://hook.us2.make.com/7r51s0r8hg75tlw8hptoerh7gh1u1u4i', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(err => console.error('Webhook error:', err));
 
     document.getElementById('leadFormWrap').innerHTML = `
       <div style="text-align:center;padding:24px 0;">
