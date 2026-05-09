@@ -46,9 +46,14 @@
     .container { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
 
     /* NAV */
-    .nav { position: sticky; top: 0; z-index: 300; background: rgba(255,255,255,0.96); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(20,33,61,0.05); }
-    .nav-inner { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .site-nav { background: rgba(255,255,255,0.97); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(20,33,61,0.08); position: sticky; top: 0; z-index: 300; box-shadow: 0 2px 8px rgba(20,33,61,0.05); }
+    .site-nav-inner { display: flex; align-items: center; justify-content: space-between; height: 58px; }
+    .site-nav-brand { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--navy); flex-shrink: 0; text-decoration: none; }
+    .site-nav-links { display: flex; align-items: center; gap: 2px; }
+    .site-nav-links a { font-size: 13px; font-weight: 600; color: var(--navy-soft); padding: 6px 11px; border-radius: 999px; transition: background 0.15s ease, color 0.15s ease; white-space: nowrap; text-decoration: none; }
+    .site-nav-links a:hover { background: rgba(84,13,110,0.07); color: var(--navy); }
+    .site-nav-links a.nav-active { color: var(--navy); font-weight: 700; }
+    @media (max-width: 720px) { .site-nav-brand span { display: none; } .site-nav-links a:not(.nav-active) { display: none; } }
 
     /* HERO */
     .hero { padding: 56px 0 44px; background: rgba(255,255,255,0.82); text-align: center; }
@@ -57,47 +62,31 @@
     .hero h1 { font-family: "Fraunces", serif; font-size: clamp(1.9rem, 4vw, 3.2rem); line-height: 1.0; letter-spacing: -0.035em; color: var(--navy); max-width: 780px; margin: 0 auto 14px; }
     .hero-sub { max-width: 560px; font-size: 1.15rem; font-weight: 700; line-height: 1.65; margin: 0 auto 28px; background: linear-gradient(90deg, #f97316, #7b2ff7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .section-kicker { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-2); margin-bottom: 6px; }
-
-    /* PROOF CHIPS */
     .proof-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; justify-content: center; }
     .proof-chip { display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; padding: 10px 14px; background: #fff; color: var(--navy); font-size: 14px; font-weight: 600; box-shadow: 0 2px 12px rgba(20,33,61,0.1), 0 1px 4px rgba(20,33,61,0.06); }
     .proof-chip .dot { width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; color: var(--accent); flex-shrink: 0; }
 
     /* TOOL CARD */
     .tool-card { background: var(--card); border: 1px solid rgba(84,13,110,0.14); border-radius: 22px; box-shadow: var(--shadow-card); padding: 28px 24px 24px; max-width: 680px; margin: 0 auto; }
-
-    /* PROGRESS */
     .progress-bar { height: 3px; background: var(--border); border-radius: 99px; margin-bottom: 6px; overflow: hidden; }
     .progress-fill { height: 100%; background: linear-gradient(90deg, #7b2ff7, #f97316); border-radius: 99px; transition: width 0.35s ease; }
     .progress-label { font-size: 11px; font-weight: 700; color: var(--navy-soft); text-align: right; margin-bottom: 22px; }
-
     .tool-step { display: none; }
     .tool-step.active { display: block; animation: stepIn 0.22s ease; }
     @keyframes stepIn { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }
-
     .step-kicker { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-2); margin-bottom: 8px; }
     .step-question { font-family: "Fraunces", serif; font-size: clamp(1.3rem, 3vw, 1.75rem); line-height: 1.08; letter-spacing: -0.025em; color: var(--navy); margin-bottom: 18px; }
     .step-hint { font-size: 13px; font-weight: 500; color: var(--navy-soft); margin-top: -12px; margin-bottom: 16px; line-height: 1.5; }
-
-    /* OPTION GRIDS */
     .opt-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 4px; }
     .opt-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 4px; }
     .opt-grid-1 { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 4px; }
-
-    .opt-btn {
-      border: 1px solid rgba(84,13,110,0.14); border-radius: 18px;
-      background: var(--card); padding: 16px 14px 14px; cursor: pointer; text-align: left;
-      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-      box-shadow: var(--shadow-soft); display: flex; align-items: flex-start; gap: 11px;
-    }
+    .opt-btn { border: 1px solid rgba(84,13,110,0.14); border-radius: 18px; background: var(--card); padding: 16px 14px 14px; cursor: pointer; text-align: left; transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease; box-shadow: var(--shadow-soft); display: flex; align-items: flex-start; gap: 11px; }
     .opt-btn:hover { transform: translateY(-2px); border-color: rgba(249,115,22,0.3); box-shadow: var(--shadow-hover); background: #fff9fb; }
     .opt-btn.selected { border-color: var(--accent); background: #f9f5ff; box-shadow: 0 0 0 3px rgba(84,13,110,0.07); }
     .opt-icon { font-size: 24px; flex-shrink: 0; margin-top: 1px; }
     .opt-title { font-size: 14px; font-weight: 800; color: var(--navy); line-height: 1.2; margin-bottom: 3px; }
     .opt-sub { font-size: 12px; font-weight: 500; color: var(--navy-soft); line-height: 1.4; }
     .opt-range { font-size: 11px; font-weight: 700; color: var(--accent); margin-top: 4px; }
-
-    /* AMOUNT INPUT */
     .amount-wrap { position: relative; margin-bottom: 20px; }
     .amount-prefix { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-family: "Fraunces", serif; font-size: 26px; font-weight: 700; color: var(--navy-soft); pointer-events: none; }
     .amount-input { width: 100%; padding: 20px 20px 20px 44px; font-family: "Fraunces", serif; font-size: 36px; font-weight: 700; color: var(--navy); border: 1px solid rgba(84,13,110,0.14); border-radius: 18px; background: var(--card); outline: none; box-shadow: var(--shadow-soft); transition: border-color 0.18s, box-shadow 0.18s; }
@@ -105,48 +94,35 @@
     .amount-input::placeholder { color: #c8d0de; }
     .amount-context { font-size: 13px; font-weight: 600; color: var(--navy-soft); margin-bottom: 16px; background: #f7f9fc; border-radius: 12px; padding: 10px 14px; line-height: 1.5; text-align: left; }
     .amount-context strong { color: var(--navy); }
-
-    /* BUTTONS */
     .btn-check { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px 20px; border-radius: 999px; border: none; cursor: pointer; background: #FF3C38; color: #fff; font-size: 15px; font-weight: 800; line-height: 1; box-shadow: 0 10px 24px rgba(255,60,56,0.18); transition: transform 0.16s ease, box-shadow 0.16s ease; }
     .btn-check:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(255,60,56,0.26); }
     .btn-check:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
     .btn-back { background: none; border: none; cursor: pointer; color: var(--navy-soft); font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; margin-bottom: 18px; padding: 0; transition: color 0.15s; }
     .btn-back:hover { color: var(--navy); }
 
-    /* RESULT CARD */
+    /* RESULT */
     .result-card { display: none; background: var(--card); border: 1px solid rgba(84,13,110,0.14); border-radius: 22px; box-shadow: var(--shadow-card); padding: 28px 24px 24px; max-width: 680px; margin: 0 auto; }
     .result-card.visible { display: block; animation: fadeUp 0.35s ease; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
     .result-header { text-align: center; margin-bottom: 22px; }
     .result-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
     .badge-low    { background: #dcfce7; color: #15803d; }
     .badge-fair   { background: #fef9c3; color: #854d0e; }
     .badge-high   { background: #fee2e2; color: #b91c1c; }
     .badge-unsure { background: #f3e8ff; color: #7e22ce; }
-
     .result-amount { font-family: "Fraunces", serif; font-size: clamp(2.4rem, 6vw, 3.6rem); font-weight: 700; line-height: 1; letter-spacing: -0.03em; color: var(--navy); margin-bottom: 6px; }
     .result-job-label { font-size: 13px; font-weight: 700; color: var(--navy-soft); margin-bottom: 4px; }
-
-    /* GAUGE */
     .gauge-wrap { max-width: 420px; margin: 0 auto 18px; }
     .gauge-track { height: 12px; border-radius: 99px; background: linear-gradient(90deg, #dcfce7 0%, #fef9c3 50%, #fee2e2 100%); position: relative; margin-bottom: 8px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.08); }
     .gauge-marker { position: absolute; top: 50%; transform: translate(-50%,-50%); width: 22px; height: 22px; background: var(--navy); border-radius: 50%; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.22); transition: left 0.7s cubic-bezier(0.34,1.56,0.64,1); }
     .gauge-labels { display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; color: var(--navy-soft); text-transform: uppercase; letter-spacing: 0.06em; }
-
     .result-range { font-size: 14px; font-weight: 600; color: var(--navy-soft); text-align: center; margin-bottom: 18px; }
     .result-range strong { color: var(--navy); }
-
-    /* SUMMARY CHIPS */
     .summary-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 16px; }
     .summary-chip { display: inline-flex; align-items: center; gap: 6px; background: #f7f9fc; border: 1px solid var(--border-strong); border-radius: 999px; padding: 5px 12px; font-size: 12px; font-weight: 600; color: var(--navy-soft); }
-
     .result-message-box { background: #f7f9fc; border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px; font-size: 15px; line-height: 1.7; color: var(--navy); margin-bottom: 12px; text-align: left; }
-
     .replace-nudge { background: #f3eeff; border: 1px solid rgba(84,13,110,0.15); border-radius: 14px; padding: 12px 16px; font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 12px; text-align: left; display: none; }
     .replace-nudge.visible { display: block; }
-
-    /* LEAD FORM */
     .lead-divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
     .lead-head { font-family: "Fraunces", serif; font-size: clamp(1.3rem, 3vw, 1.7rem); line-height: 1.05; letter-spacing: -0.025em; color: var(--navy); margin-bottom: 6px; text-align: center; }
     .lead-sub { font-size: 13px; font-weight: 600; color: var(--navy-soft); text-align: center; margin-bottom: 18px; }
@@ -166,8 +142,6 @@
     .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px; box-shadow: var(--shadow-soft); }
     .faq-q { font-size: 15px; font-weight: 800; color: var(--navy); margin-bottom: 5px; }
     .faq-a { font-size: 14px; color: var(--navy-soft); line-height: 1.6; }
-
-    /* BOTTOM CTA */
     .bottom-cta-wrap { padding: 40px 0 48px; background: #f7f9fc; border-top: 1px solid var(--border); text-align: center; }
     .bottom-cta-wrap h2 { font-family: "Fraunces", serif; font-size: clamp(1.7rem, 3vw, 2.4rem); line-height: 1.04; letter-spacing: -0.03em; color: var(--navy); margin-bottom: 10px; }
     .bottom-cta-wrap p { color: var(--navy-soft); font-size: 1rem; margin-bottom: 22px; }
@@ -175,8 +149,6 @@
     .btn:hover { transform: translateY(-1px); }
     .btn-primary { background: #FF3C38; color: #fff; box-shadow: 0 10px 24px rgba(255,60,56,0.18); }
     .btn-primary:hover { box-shadow: 0 14px 30px rgba(249,115,22,0.24); }
-
-    /* FOOTER */
     .footer { background: #fff; border-top: 1px solid var(--border); padding: 24px 0 40px; }
     .footer-inner { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--navy-soft); font-size: 14px; }
 
@@ -194,30 +166,28 @@
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="container nav-inner">
-      <a href="/" class="nav-logo">
-        <svg height="52" viewBox="0 0 56 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="navGrad" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#7b2ff7"/><stop offset="100%" stop-color="#f97316"/></linearGradient>
-          </defs>
+  <nav class="site-nav">
+    <div class="container site-nav-inner">
+      <a href="https://quotes.hvacinstallcosts.com" class="site-nav-brand">
+        <svg height="26" viewBox="0 0 56 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="navGrad" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#7b2ff7"/><stop offset="100%" stop-color="#f97316"/></linearGradient></defs>
           <rect x="4" y="36" width="8" height="12" rx="2" fill="url(#navGrad)"/>
           <rect x="15" y="28" width="8" height="20" rx="2" fill="url(#navGrad)"/>
           <rect x="26" y="20" width="8" height="28" rx="2" fill="url(#navGrad)"/>
           <rect x="37" y="12" width="8" height="36" rx="2" fill="url(#navGrad)"/>
           <path d="M48 6 Q56 6 56 14 L56 48 L48 48 Z" fill="url(#navGrad)"/>
         </svg>
+        <span>HVAC Cost Guide</span>
       </a>
-      <div style="display:flex;align-items:center;gap:16px;">
-        <a href="https://heating.millcreek-hvac.com" style="font-size:14px;font-weight:700;color:var(--navy-soft);">Heating</a>
-        <a href="https://acselector.millcreek-hvac.com" style="font-size:14px;font-weight:700;color:var(--navy-soft);">AC</a>
-        <a href="#tool" class="btn btn-primary" style="padding:10px 20px;font-size:14px;">Check My Quote →</a>
+      <div class="site-nav-links">
+        <a href="https://ac.hvacinstallcosts.com">Cooling Guide</a>
+        <a href="https://minisplit.hvacinstallcosts.com">Mini-Split</a>
+        <a href="https://heating.hvacinstallcosts.com">Heating Guide</a>
+        <a href="https://quotes.hvacinstallcosts.com" class="nav-active">Compare Quotes</a>
       </div>
     </div>
   </nav>
 
-  <!-- HERO -->
   <section class="hero" id="tool">
     <div class="container">
       <div class="hero-mark">
@@ -238,174 +208,100 @@
         </svg>
         <span class="hero-mark-label">HVAC Cost Guide</span>
       </div>
-
       <div class="section-kicker" style="margin-bottom:12px;">King &amp; Snohomish County</div>
       <h1>Is Your HVAC Quote Fair?</h1>
       <p class="hero-sub">Answer a few quick questions. We'll show you exactly where your quote stands.</p>
-
       <div class="proof-chips">
         <div class="proof-chip"><span class="dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 4v5c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V7l7-4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span>No contact info required</div>
         <div class="proof-chip"><span class="dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 19h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 15l3-3 3 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Based on local contractor rates</div>
         <div class="proof-chip"><span class="dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Under 2 minutes</div>
       </div>
 
-      <!-- TOOL -->
       <div class="tool-card" id="toolCard">
         <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:10%"></div></div>
         <div class="progress-label" id="progressLabel">Step 1 of 5</div>
 
-        <!-- S1: Job type -->
         <div class="tool-step active" id="s1">
           <div class="step-kicker">Step 1 of 5</div>
           <div class="step-question">What type of quote did you get?</div>
           <div class="opt-grid-2">
-            <button class="opt-btn" onclick="pick('s1','ac-install',this)">
-              <span class="opt-icon">❄️</span>
-              <span><div class="opt-title">AC Installation</div><div class="opt-sub">New central air system</div><div class="opt-range">$3,200 – $11,000 typical</div></span>
-            </button>
-            <button class="opt-btn" onclick="pick('s1','furnace-install',this)">
-              <span class="opt-icon">🔥</span>
-              <span><div class="opt-title">Furnace Installation</div><div class="opt-sub">New gas or electric furnace</div><div class="opt-range">$2,600 – $5,800 typical</div></span>
-            </button>
-            <button class="opt-btn" onclick="pick('s1','ac-repair',this)">
-              <span class="opt-icon">🔧</span>
-              <span><div class="opt-title">AC Repair</div><div class="opt-sub">Fix existing AC unit</div><div class="opt-range">$150 – $2,000 typical</div></span>
-            </button>
-            <button class="opt-btn" onclick="pick('s1','heat-repair',this)">
-              <span class="opt-icon">🛠️</span>
-              <span><div class="opt-title">Heating Repair</div><div class="opt-sub">Fix existing furnace or heat pump</div><div class="opt-range">$150 – $1,600 typical</div></span>
-            </button>
+            <button class="opt-btn" onclick="pick('s1','ac-install',this)"><span class="opt-icon">❄️</span><span><div class="opt-title">AC Installation</div><div class="opt-sub">New central air system</div><div class="opt-range">$3,200 – $11,000 typical</div></span></button>
+            <button class="opt-btn" onclick="pick('s1','furnace-install',this)"><span class="opt-icon">🔥</span><span><div class="opt-title">Furnace Installation</div><div class="opt-sub">New gas or electric furnace</div><div class="opt-range">$2,600 – $5,800 typical</div></span></button>
+            <button class="opt-btn" onclick="pick('s1','ac-repair',this)"><span class="opt-icon">🔧</span><span><div class="opt-title">AC Repair</div><div class="opt-sub">Fix existing AC unit</div><div class="opt-range">$150 – $2,000 typical</div></span></button>
+            <button class="opt-btn" onclick="pick('s1','heat-repair',this)"><span class="opt-icon">🛠️</span><span><div class="opt-title">Heating Repair</div><div class="opt-sub">Fix existing furnace or heat pump</div><div class="opt-range">$150 – $1,600 typical</div></span></button>
           </div>
         </div>
 
-        <!-- S2a: Home size (installs only) -->
         <div class="tool-step" id="s2size">
           <button class="btn-back" onclick="goBack('s1',10,'Step 1 of 5')">← Back</button>
           <div class="step-kicker">Step 2 of 5</div>
           <div class="step-question">What's your home's approximate square footage?</div>
           <p class="step-hint">This is the biggest factor in system sizing and total cost.</p>
           <div class="opt-grid-3">
-            <button class="opt-btn" onclick="pick('s2size','small',this)">
-              <span class="opt-icon">🏠</span>
-              <span><div class="opt-title">Under 1,200 sq ft</div><div class="opt-sub">Condo, small home</div></span>
-            </button>
-            <button class="opt-btn" onclick="pick('s2size','medium',this)">
-              <span class="opt-icon">🏡</span>
-              <span><div class="opt-title">1,200 – 2,400 sq ft</div><div class="opt-sub">Average single family</div></span>
-            </button>
-            <button class="opt-btn" onclick="pick('s2size','large',this)">
-              <span class="opt-icon">🏘️</span>
-              <span><div class="opt-title">Over 2,400 sq ft</div><div class="opt-sub">Large home</div></span>
-            </button>
+            <button class="opt-btn" onclick="pick('s2size','small',this)"><span class="opt-icon">🏠</span><span><div class="opt-title">Under 1,200 sq ft</div><div class="opt-sub">Condo, small home</div></span></button>
+            <button class="opt-btn" onclick="pick('s2size','medium',this)"><span class="opt-icon">🏡</span><span><div class="opt-title">1,200 – 2,400 sq ft</div><div class="opt-sub">Average single family</div></span></button>
+            <button class="opt-btn" onclick="pick('s2size','large',this)"><span class="opt-icon">🏘️</span><span><div class="opt-title">Over 2,400 sq ft</div><div class="opt-sub">Large home</div></span></button>
           </div>
         </div>
 
-        <!-- S3a: Ductwork (installs only) -->
         <div class="tool-step" id="s3duct">
           <button class="btn-back" onclick="goBack('s2size',30,'Step 2 of 5')">← Back</button>
           <div class="step-kicker">Step 3 of 5</div>
           <div class="step-question">What's the situation with your ductwork?</div>
           <p class="step-hint">Ductwork condition can add $800–$3,000 to the total job cost.</p>
           <div class="opt-grid-1">
-            <button class="opt-btn" onclick="pick('s3duct','existing',this)">
-              <span class="opt-icon">✅</span>
-              <span><div class="opt-title">Existing ductwork — good condition</div><div class="opt-sub">Contractor confirmed it's usable as-is</div></span>
-            </button>
-            <button class="opt-btn" onclick="pick('s3duct','modify',this)">
-              <span class="opt-icon">🔨</span>
-              <span><div class="opt-title">Ductwork needs modification or repair</div><div class="opt-sub">Some runs need to be added, sealed, or replaced</div></span>
-            </button>
-            <button class="opt-btn" onclick="pick('s3duct','none',this)">
-              <span class="opt-icon">🚫</span>
-              <span><div class="opt-title">No existing ductwork</div><div class="opt-sub">Full duct installation required</div></span>
-            </button>
+            <button class="opt-btn" onclick="pick('s3duct','existing',this)"><span class="opt-icon">✅</span><span><div class="opt-title">Existing ductwork — good condition</div><div class="opt-sub">Contractor confirmed it's usable as-is</div></span></button>
+            <button class="opt-btn" onclick="pick('s3duct','modify',this)"><span class="opt-icon">🔨</span><span><div class="opt-title">Ductwork needs modification or repair</div><div class="opt-sub">Some runs need to be added, sealed, or replaced</div></span></button>
+            <button class="opt-btn" onclick="pick('s3duct','none',this)"><span class="opt-icon">🚫</span><span><div class="opt-title">No existing ductwork</div><div class="opt-sub">Full duct installation required</div></span></button>
           </div>
         </div>
 
-        <!-- S4a: Efficiency (furnace install only) -->
         <div class="tool-step" id="s4efficiency">
           <button class="btn-back" onclick="goBack('s3duct',55,'Step 3 of 5')">← Back</button>
           <div class="step-kicker">Step 4 of 5</div>
           <div class="step-question">What efficiency tier was quoted?</div>
           <p class="step-hint">High-efficiency furnaces cost $500–$1,500 more upfront but reduce monthly heating bills.</p>
           <div class="opt-grid-1">
-            <button class="opt-btn" onclick="pick('s4efficiency','standard',this)">
-              <span class="opt-icon">⚡</span>
-              <span><div class="opt-title">Standard — 80% AFUE</div><div class="opt-sub">Most common, lower upfront cost</div></span>
-            </button>
-            <button class="opt-btn" onclick="pick('s4efficiency','higheff',this)">
-              <span class="opt-icon">🌟</span>
-              <span><div class="opt-title">High efficiency — 95%+ AFUE</div><div class="opt-sub">Lower operating costs, qualifies for rebates</div></span>
-            </button>
-            <button class="opt-btn" onclick="pick('s4efficiency','unsure',this)">
-              <span class="opt-icon">❓</span>
-              <span><div class="opt-title">Not sure / wasn't specified</div><div class="opt-sub">I'll use a wider range</div></span>
-            </button>
+            <button class="opt-btn" onclick="pick('s4efficiency','standard',this)"><span class="opt-icon">⚡</span><span><div class="opt-title">Standard — 80% AFUE</div><div class="opt-sub">Most common, lower upfront cost</div></span></button>
+            <button class="opt-btn" onclick="pick('s4efficiency','higheff',this)"><span class="opt-icon">🌟</span><span><div class="opt-title">High efficiency — 95%+ AFUE</div><div class="opt-sub">Lower operating costs, qualifies for rebates</div></span></button>
+            <button class="opt-btn" onclick="pick('s4efficiency','unsure',this)"><span class="opt-icon">❓</span><span><div class="opt-title">Not sure / wasn't specified</div><div class="opt-sub">I'll use a wider range</div></span></button>
           </div>
         </div>
 
-        <!-- S2b: Repair bucket -->
         <div class="tool-step" id="s2bucket">
           <button class="btn-back" onclick="goBack('s1',10,'Step 1 of 5')">← Back</button>
           <div class="step-kicker">Step 2 of 5</div>
           <div class="step-question">What best describes what failed?</div>
           <div class="opt-grid-1">
-            <button class="opt-btn" onclick="pick('s2bucket','minor',this)">
-              <span class="opt-icon">⚡</span>
-              <span><div class="opt-title">Minor component</div><div class="opt-sub">Capacitor, contactor, igniter, thermostat, refrigerant top-off, sensor</div><div class="opt-range">$150 – $750 typical</div></span>
-            </button>
-            <button class="opt-btn" onclick="pick('s2bucket','major',this)">
-              <span class="opt-icon">⚙️</span>
-              <span><div class="opt-title">Major component</div><div class="opt-sub">Blower motor, heat exchanger, compressor, evaporator coil, control board</div><div class="opt-range">$500 – $2,000 typical</div></span>
-            </button>
-            <button class="opt-btn" onclick="pick('s2bucket','unsure',this)">
-              <span class="opt-icon">❓</span>
-              <span><div class="opt-title">Not sure what failed</div><div class="opt-sub">Contractor gave a quote but I'm uncertain of the specific part</div></span>
-            </button>
+            <button class="opt-btn" onclick="pick('s2bucket','minor',this)"><span class="opt-icon">⚡</span><span><div class="opt-title">Minor component</div><div class="opt-sub">Capacitor, contactor, igniter, thermostat, refrigerant top-off, sensor</div><div class="opt-range">$150 – $750 typical</div></span></button>
+            <button class="opt-btn" onclick="pick('s2bucket','major',this)"><span class="opt-icon">⚙️</span><span><div class="opt-title">Major component</div><div class="opt-sub">Blower motor, heat exchanger, compressor, evaporator coil, control board</div><div class="opt-range">$500 – $2,000 typical</div></span></button>
+            <button class="opt-btn" onclick="pick('s2bucket','unsure',this)"><span class="opt-icon">❓</span><span><div class="opt-title">Not sure what failed</div><div class="opt-sub">Contractor gave a quote but I'm uncertain of the specific part</div></span></button>
           </div>
         </div>
 
-        <!-- S3b: System age (repair, non-unsure) -->
         <div class="tool-step" id="s3age">
           <button class="btn-back" onclick="goBack('s2bucket',30,'Step 2 of 5')">← Back</button>
           <div class="step-kicker">Step 3 of 5</div>
           <div class="step-question">How old is your system?</div>
           <p class="step-hint">System age affects whether repair is the right call — and changes what a fair repair price looks like.</p>
           <div class="opt-grid-3">
-            <button class="opt-btn" onclick="pick('s3age','young',this)">
-              <span class="opt-icon">🆕</span>
-              <span><div class="opt-title">Under 10 years</div><div class="opt-sub">Repair almost always makes sense</div></span>
-            </button>
-            <button class="opt-btn" onclick="pick('s3age','mid',this)">
-              <span class="opt-icon">📅</span>
-              <span><div class="opt-title">10 – 15 years</div><div class="opt-sub">Depends on repair scope</div></span>
-            </button>
-            <button class="opt-btn" onclick="pick('s3age','old',this)">
-              <span class="opt-icon">⏳</span>
-              <span><div class="opt-title">Over 15 years</div><div class="opt-sub">Replacement worth considering</div></span>
-            </button>
+            <button class="opt-btn" onclick="pick('s3age','young',this)"><span class="opt-icon">🆕</span><span><div class="opt-title">Under 10 years</div><div class="opt-sub">Repair almost always makes sense</div></span></button>
+            <button class="opt-btn" onclick="pick('s3age','mid',this)"><span class="opt-icon">📅</span><span><div class="opt-title">10 – 15 years</div><div class="opt-sub">Depends on repair scope</div></span></button>
+            <button class="opt-btn" onclick="pick('s3age','old',this)"><span class="opt-icon">⏳</span><span><div class="opt-title">Over 15 years</div><div class="opt-sub">Replacement worth considering</div></span></button>
           </div>
         </div>
 
-        <!-- S4b: After hours (repair) -->
         <div class="tool-step" id="s4hours">
           <button class="btn-back" onclick="goBack('s3age',55,'Step 3 of 5')">← Back</button>
           <div class="step-kicker">Step 4 of 5</div>
           <div class="step-question">Was this an emergency or after-hours call?</div>
           <p class="step-hint">Emergency and after-hours service typically adds 40–100% to labor cost.</p>
           <div class="opt-grid-2">
-            <button class="opt-btn" onclick="pick('s4hours','yes',this)">
-              <span class="opt-icon">🚨</span>
-              <span><div class="opt-title">Yes</div><div class="opt-sub">Weekend, evening, or same-day emergency</div></span>
-            </button>
-            <button class="opt-btn" onclick="pick('s4hours','no',this)">
-              <span class="opt-icon">📆</span>
-              <span><div class="opt-title">No</div><div class="opt-sub">Scheduled during normal business hours</div></span>
-            </button>
+            <button class="opt-btn" onclick="pick('s4hours','yes',this)"><span class="opt-icon">🚨</span><span><div class="opt-title">Yes</div><div class="opt-sub">Weekend, evening, or same-day emergency</div></span></button>
+            <button class="opt-btn" onclick="pick('s4hours','no',this)"><span class="opt-icon">📆</span><span><div class="opt-title">No</div><div class="opt-sub">Scheduled during normal business hours</div></span></button>
           </div>
         </div>
 
-        <!-- S5: Amount (all paths) -->
         <div class="tool-step" id="s5amount">
           <button class="btn-back" id="backFromAmount" onclick="backAmount()">← Back</button>
           <div class="step-kicker" id="amountStepLabel">Step 5 of 5</div>
@@ -417,29 +313,23 @@
           </div>
           <button class="btn-check" id="checkBtn" onclick="checkQuote()" disabled>Check My Quote →</button>
         </div>
+      </div>
 
-      </div><!-- /tool-card -->
-
-      <!-- RESULT -->
       <div class="result-card" id="resultCard">
         <div class="result-header">
           <div class="result-badge" id="resultBadge"></div>
           <div class="result-amount" id="resultAmount"></div>
           <div class="result-job-label" id="resultJobLabel"></div>
         </div>
-
         <div class="gauge-wrap">
           <div class="gauge-track"><div class="gauge-marker" id="gaugeMarker" style="left:50%"></div></div>
           <div class="gauge-labels"><span>Low</span><span>Fair Range</span><span>High</span></div>
         </div>
-
         <div class="result-range" id="resultRange"></div>
         <div class="summary-chips" id="summaryChips"></div>
         <div class="result-message-box" id="resultMessage"></div>
         <div class="replace-nudge" id="replaceNudge">💡 <strong>Worth considering:</strong> Given this system's age and repair cost, replacement may be the smarter long-term investment. A second opinion can help you compare both options with real numbers.</div>
-
         <hr class="lead-divider" />
-
         <div id="leadFormWrap">
           <div class="lead-head">Get a Free Second Quote</div>
           <div class="lead-sub">Local licensed contractors only. No spam. No obligation.</div>
@@ -449,14 +339,11 @@
           <button class="btn-check" onclick="submitLead()" style="margin-top:6px;">Request My Free Quote →</button>
           <div class="form-micro">We connect you with vetted local contractors. Your info is never sold.</div>
         </div>
-
         <button class="reset-link" onclick="resetTool()">← Check another quote</button>
       </div>
-
     </div>
   </section>
 
-  <!-- FAQ -->
   <section class="section" style="background:#ffffff;">
     <div class="container">
       <div class="section-head">
@@ -464,31 +351,15 @@
         <h2>Common questions</h2>
       </div>
       <div class="faq-list">
-        <div class="faq-item">
-          <div class="faq-q">How are these ranges calculated?</div>
-          <div class="faq-a">Based on regional contractor data and industry pricing benchmarks for Western Washington. Ranges reflect total installed cost — parts and labor — for typical jobs in Snohomish County. We account for home size, ductwork condition, system age, and efficiency tier to give you a tighter, more accurate range than a generic estimate.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">Does the range include labor?</div>
-          <div class="faq-a">Yes. All ranges reflect total project cost — equipment, labor, and standard supplies. Permit fees and haul-away charges may vary by contractor and aren't always included in a first quote, so ask specifically.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">My quote came back "fair" — should I still get a second?</div>
-          <div class="faq-a">Up to you. A second quote is always free and takes a few minutes. Even a fair price can have scope differences worth knowing about — warranty terms, equipment brand, and what's included in the install vary significantly between contractors.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">When does repair stop making sense?</div>
-          <div class="faq-a">A common benchmark is the 5,000 rule: multiply the system age by the repair cost. If that number exceeds $5,000, replacement is usually the better investment. A system over 15 years old with a major component failure is almost always a replacement candidate.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">Is this affiliated with any contractor?</div>
-          <div class="faq-a">No. This tool is fully independent. When you request a quote, we connect you with vetted local contractors — but we don't represent any single company or have a preferred provider.</div>
-        </div>
+        <div class="faq-item"><div class="faq-q">How are these ranges calculated?</div><div class="faq-a">Based on regional contractor data and industry pricing benchmarks for Western Washington. Ranges reflect total installed cost — parts and labor — for typical jobs in Snohomish County. We account for home size, ductwork condition, system age, and efficiency tier to give you a tighter, more accurate range than a generic estimate.</div></div>
+        <div class="faq-item"><div class="faq-q">Does the range include labor?</div><div class="faq-a">Yes. All ranges reflect total project cost — equipment, labor, and standard supplies. Permit fees and haul-away charges may vary by contractor and aren't always included in a first quote, so ask specifically.</div></div>
+        <div class="faq-item"><div class="faq-q">My quote came back "fair" — should I still get a second?</div><div class="faq-a">Up to you. A second quote is always free and takes a few minutes. Even a fair price can have scope differences worth knowing about — warranty terms, equipment brand, and what's included in the install vary significantly between contractors.</div></div>
+        <div class="faq-item"><div class="faq-q">When does repair stop making sense?</div><div class="faq-a">A common benchmark is the 5,000 rule: multiply the system age by the repair cost. If that number exceeds $5,000, replacement is usually the better investment. A system over 15 years old with a major component failure is almost always a replacement candidate.</div></div>
+        <div class="faq-item"><div class="faq-q">Is this affiliated with any contractor?</div><div class="faq-a">No. This tool is fully independent. When you request a quote, we connect you with vetted local contractors — but we don't represent any single company or have a preferred provider.</div></div>
       </div>
     </div>
   </section>
 
-  <!-- BOTTOM CTA -->
   <section class="bottom-cta-wrap">
     <div class="container">
       <h2>Not sure if your quote is fair?</h2>
@@ -497,128 +368,54 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer-inner">
-      <div>© 2026 HVAC Cost Guide</div>
-      <div>Informational estimates only · <a href="https://www.termsfeed.com/live/30b803b4-2d68-4cab-a2d5-0ef398f021cf" style="text-decoration:underline;">Privacy Policy</a></div>
+      <div>&copy; 2026 HVAC Cost Guide &middot; hvacinstallcosts.com</div>
+      <div>Informational estimates only &middot; <a href="https://www.termsfeed.com/live/30b803b4-2d68-4cab-a2d5-0ef398f021cf" style="text-decoration:underline;">Privacy Policy</a></div>
     </div>
   </footer>
 
   <script>
-  // ── STATE ──
-  const S = {
-    jobType: null,   // ac-install | furnace-install | ac-repair | heat-repair
-    size: null,      // small | medium | large
-    duct: null,      // existing | modify | none
-    efficiency: null,// standard | higheff | unsure
-    bucket: null,    // minor | major | unsure
-    age: null,       // young | mid | old
-    hours: null,     // yes | no
-    amount: null
-  };
-
-  // ── PRICING BANDS ──
-  // AC Install: [size][duct] -> {low, high}
+  const S = { jobType: null, size: null, duct: null, efficiency: null, bucket: null, age: null, hours: null, amount: null };
   const AC_INSTALL = {
     small:  { existing:{low:3200,high:5000}, modify:{low:4500,high:6500}, none:{low:5500,high:8000} },
     medium: { existing:{low:4000,high:6000}, modify:{low:5500,high:8000}, none:{low:7000,high:10000} },
     large:  { existing:{low:5500,high:8000}, modify:{low:7000,high:11000}, none:{low:9000,high:14000} }
   };
-
-  // Furnace Install: [size][efficiency] -> {low, high}  (add duct modifier separately)
   const FURNACE_BASE = {
     small:  { standard:{low:2600,high:3500}, higheff:{low:3200,high:4400}, unsure:{low:2600,high:4400} },
     medium: { standard:{low:2900,high:3900}, higheff:{low:3600,high:4800}, unsure:{low:2900,high:4800} },
     large:  { standard:{low:3400,high:4500}, higheff:{low:4200,high:5800}, unsure:{low:3400,high:5800} }
   };
   const DUCT_MOD = { existing:{low:0,high:0}, modify:{low:800,high:1500}, none:{low:1500,high:3500} };
-
-  // Repair: [bucket][age][hours] -> {low, high}
   const AC_REPAIR = {
-    minor: {
-      young: { no:{low:150,high:500},  yes:{low:250,high:750} },
-      mid:   { no:{low:150,high:500},  yes:{low:250,high:750} },
-      old:   { no:{low:150,high:500},  yes:{low:250,high:750} }
-    },
-    major: {
-      young: { no:{low:600,high:1500}, yes:{low:900,high:2000} },
-      mid:   { no:{low:700,high:1800}, yes:{low:950,high:2000} },
-      old:   { no:{low:800,high:2000}, yes:{low:1100,high:2000} }
-    }
+    minor: { young:{no:{low:150,high:500},yes:{low:250,high:750}}, mid:{no:{low:150,high:500},yes:{low:250,high:750}}, old:{no:{low:150,high:500},yes:{low:250,high:750}} },
+    major: { young:{no:{low:600,high:1500},yes:{low:900,high:2000}}, mid:{no:{low:700,high:1800},yes:{low:950,high:2000}}, old:{no:{low:800,high:2000},yes:{low:1100,high:2000}} }
   };
   const HEAT_REPAIR = {
-    minor: {
-      young: { no:{low:150,high:450},  yes:{low:220,high:650} },
-      mid:   { no:{low:150,high:450},  yes:{low:220,high:650} },
-      old:   { no:{low:150,high:450},  yes:{low:220,high:650} }
-    },
-    major: {
-      young: { no:{low:500,high:1200}, yes:{low:750,high:1600} },
-      mid:   { no:{low:600,high:1400}, yes:{low:850,high:1800} },
-      old:   { no:{low:700,high:1600}, yes:{low:950,high:2000} }
-    }
+    minor: { young:{no:{low:150,high:450},yes:{low:220,high:650}}, mid:{no:{low:150,high:450},yes:{low:220,high:650}}, old:{no:{low:150,high:450},yes:{low:220,high:650}} },
+    major: { young:{no:{low:500,high:1200},yes:{low:750,high:1600}}, mid:{no:{low:600,high:1400},yes:{low:850,high:1800}}, old:{no:{low:700,high:1600},yes:{low:950,high:2000}} }
   };
-
   const isRepair = t => t === 'ac-repair' || t === 'heat-repair';
   const isInstall = t => t === 'ac-install' || t === 'furnace-install';
   const fmt = n => '$' + n.toLocaleString();
 
-  // ── STEP ROUTING ──
   function pick(stepId, value, el) {
-    // highlight selection
     document.querySelectorAll('#' + stepId + ' .opt-btn').forEach(b => b.classList.remove('selected'));
     el.classList.add('selected');
-
     const v = value;
     setTimeout(() => {
-      // S1: job type
-      if (stepId === 's1') {
-        S.jobType = v;
-        if (isInstall(v)) advance('s2size', 30, 'Step 2 of 5');
-        else advance('s2bucket', 30, 'Step 2 of 5');
-      }
-      // S2 install: size
-      else if (stepId === 's2size') {
-        S.size = v;
-        advance('s3duct', 50, 'Step 3 of 5');
-      }
-      // S3 install: duct
-      else if (stepId === 's3duct') {
-        S.duct = v;
-        if (S.jobType === 'furnace-install') advance('s4efficiency', 70, 'Step 4 of 5');
-        else { setAmountStep(4,5); advance('s5amount', 80, 'Step 4 of 4'); }
-      }
-      // S4 furnace: efficiency
-      else if (stepId === 's4efficiency') {
-        S.efficiency = v;
-        setAmountStep(5,5);
-        advance('s5amount', 90, 'Step 5 of 5');
-      }
-      // S2 repair: bucket
-      else if (stepId === 's2bucket') {
-        S.bucket = v;
-        if (v === 'unsure') { setAmountStep(3,3); advance('s5amount', 70, 'Step 3 of 3'); }
-        else advance('s3age', 50, 'Step 3 of 5');
-      }
-      // S3 repair: age
-      else if (stepId === 's3age') {
-        S.age = v;
-        advance('s4hours', 70, 'Step 4 of 5');
-      }
-      // S4 repair: hours
-      else if (stepId === 's4hours') {
-        S.hours = v;
-        setAmountStep(5,5);
-        advance('s5amount', 90, 'Step 5 of 5');
-      }
+      if (stepId === 's1') { S.jobType = v; if (isInstall(v)) advance('s2size',30,'Step 2 of 5'); else advance('s2bucket',30,'Step 2 of 5'); }
+      else if (stepId === 's2size') { S.size = v; advance('s3duct',50,'Step 3 of 5'); }
+      else if (stepId === 's3duct') { S.duct = v; if (S.jobType === 'furnace-install') advance('s4efficiency',70,'Step 4 of 5'); else { setAmountStep(4,5); advance('s5amount',80,'Step 4 of 4'); } }
+      else if (stepId === 's4efficiency') { S.efficiency = v; setAmountStep(5,5); advance('s5amount',90,'Step 5 of 5'); }
+      else if (stepId === 's2bucket') { S.bucket = v; if (v === 'unsure') { setAmountStep(3,3); advance('s5amount',70,'Step 3 of 3'); } else advance('s3age',50,'Step 3 of 5'); }
+      else if (stepId === 's3age') { S.age = v; advance('s4hours',70,'Step 4 of 5'); }
+      else if (stepId === 's4hours') { S.hours = v; setAmountStep(5,5); advance('s5amount',90,'Step 5 of 5'); }
     }, 180);
   }
 
-  function setAmountStep(n, total) {
-    document.getElementById('amountStepLabel').textContent = 'Step ' + n + ' of ' + total;
-    buildAmountContext();
-  }
+  function setAmountStep(n, total) { document.getElementById('amountStepLabel').textContent = 'Step ' + n + ' of ' + total; buildAmountContext(); }
 
   function buildAmountContext() {
     let parts = [];
@@ -632,117 +429,57 @@
     document.getElementById('amountContext').innerHTML = parts.map(p => '<strong>' + p + '</strong>').join(' &middot; ');
   }
 
-  function jobLabel(t) {
-    return {
-      'ac-install':'AC Installation','furnace-install':'Furnace Installation',
-      'ac-repair':'AC Repair','heat-repair':'Heating Repair'
-    }[t];
-  }
+  function jobLabel(t) { return {'ac-install':'AC Installation','furnace-install':'Furnace Installation','ac-repair':'AC Repair','heat-repair':'Heating Repair'}[t]; }
 
-  function advance(stepId, progress, label) {
-    document.querySelectorAll('.tool-step').forEach(s => s.classList.remove('active'));
-    document.getElementById(stepId).classList.add('active');
-    setProgress(progress, label);
-  }
-
-  function goBack(stepId, progress, label) {
-    document.querySelectorAll('.tool-step').forEach(s => s.classList.remove('active'));
-    document.getElementById(stepId).classList.add('active');
-    setProgress(progress, label);
-  }
+  function advance(stepId, progress, label) { document.querySelectorAll('.tool-step').forEach(s => s.classList.remove('active')); document.getElementById(stepId).classList.add('active'); setProgress(progress, label); }
+  function goBack(stepId, progress, label) { document.querySelectorAll('.tool-step').forEach(s => s.classList.remove('active')); document.getElementById(stepId).classList.add('active'); setProgress(progress, label); }
 
   function backAmount() {
     const t = S.jobType;
-    if (t === 'furnace-install') goBack('s4efficiency', 70, 'Step 4 of 5');
-    else if (t === 'ac-install') goBack('s3duct', 50, 'Step 3 of 5');  // ac install is 4 steps
-    else if (S.bucket === 'unsure') goBack('s2bucket', 30, 'Step 2 of 5');
-    else goBack('s4hours', 70, 'Step 4 of 5');
+    if (t === 'furnace-install') goBack('s4efficiency',70,'Step 4 of 5');
+    else if (t === 'ac-install') goBack('s3duct',50,'Step 3 of 5');
+    else if (S.bucket === 'unsure') goBack('s2bucket',30,'Step 2 of 5');
+    else goBack('s4hours',70,'Step 4 of 5');
     document.getElementById('amountInput').value = '';
     document.getElementById('checkBtn').disabled = true;
     S.amount = null;
   }
 
-  function setProgress(pct, label) {
-    document.getElementById('progressFill').style.width = pct + '%';
-    if (label) document.getElementById('progressLabel').textContent = label;
-  }
+  function setProgress(pct, label) { document.getElementById('progressFill').style.width = pct + '%'; if (label) document.getElementById('progressLabel').textContent = label; }
+  function onAmountChange() { const val = parseFloat(document.getElementById('amountInput').value); S.amount = val > 0 ? val : null; document.getElementById('checkBtn').disabled = !S.amount; }
 
-  function onAmountChange() {
-    const val = parseFloat(document.getElementById('amountInput').value);
-    S.amount = val > 0 ? val : null;
-    document.getElementById('checkBtn').disabled = !S.amount;
-  }
-
-  // ── CHECK QUOTE ──
   function checkQuote() {
     if (!S.amount) return;
     const { jobType, size, duct, efficiency, bucket, age, hours, amount } = S;
-
-    // unsure bucket → always hard to say
     if (bucket === 'unsure') { showUnsure(amount, jobType); return; }
-
     let band;
-
-    if (jobType === 'ac-install') {
-      band = AC_INSTALL[size][duct];
-    } else if (jobType === 'furnace-install') {
-      const base = FURNACE_BASE[size][efficiency];
-      const mod = DUCT_MOD[duct];
-      band = { low: base.low + mod.low, high: base.high + mod.high };
-    } else if (jobType === 'ac-repair') {
-      band = AC_REPAIR[bucket][age][hours];
-    } else {
-      band = HEAT_REPAIR[bucket][age][hours];
-    }
-
+    if (jobType === 'ac-install') band = AC_INSTALL[size][duct];
+    else if (jobType === 'furnace-install') { const base = FURNACE_BASE[size][efficiency]; const mod = DUCT_MOD[duct]; band = { low: base.low + mod.low, high: base.high + mod.high }; }
+    else if (jobType === 'ac-repair') band = AC_REPAIR[bucket][age][hours];
+    else band = HEAT_REPAIR[bucket][age][hours];
     let tier, pos;
-    if (amount < band.low) {
-      tier = 'low';
-      pos = Math.max(4, Math.round((amount / band.low) * 20));
-    } else if (amount <= band.high) {
-      tier = 'fair';
-      pos = Math.round(22 + ((amount - band.low) / (band.high - band.low)) * 54);
-    } else {
-      tier = 'high';
-      pos = Math.min(96, Math.round(78 + Math.min(((amount - band.high) / band.high) * 18, 18)));
-    }
-
+    if (amount < band.low) { tier = 'low'; pos = Math.max(4, Math.round((amount / band.low) * 20)); }
+    else if (amount <= band.high) { tier = 'fair'; pos = Math.round(22 + ((amount - band.low) / (band.high - band.low)) * 54); }
+    else { tier = 'high'; pos = Math.min(96, Math.round(78 + Math.min(((amount - band.high) / band.high) * 18, 18))); }
     const fmtLow = fmt(band.low), fmtHigh = fmt(band.high), fmtAmt = fmt(amount);
-
     const messages = {
       low:  `Your quote of ${fmtAmt} is below the typical range for this scope of work in Snohomish County. That could be a great deal — or it could mean something has been left out. Ask the contractor specifically what's included: equipment brand and model, permits, haul-away, and warranty terms. A second opinion confirms you're comparing apples to apples.`,
       fair: `Your quote of ${fmtAmt} falls within the typical range for this job in Snohomish County. Based on the details you provided, you're likely in good shape. That said, a second quote is always free — and even fair prices can differ on scope, warranty, and equipment quality.`,
       high: `Your quote of ${fmtAmt} is on the high end for this type of work in Snohomish County given your home size, system, and scope. Most comparable jobs run between ${fmtLow} and ${fmtHigh}. Getting a second quote is worth it — the savings could be substantial.`
     };
-
-    const badges = {
-      low:  { cls:'badge-low',  label:'⬇ Below Average' },
-      fair: { cls:'badge-fair', label:'✓ In the Fair Range' },
-      high: { cls:'badge-high', label:'⬆ Above Average' }
-    };
-
+    const badges = { low:{cls:'badge-low',label:'⬇ Below Average'}, fair:{cls:'badge-fair',label:'✓ In the Fair Range'}, high:{cls:'badge-high',label:'⬆ Above Average'} };
     document.getElementById('resultBadge').className = 'result-badge ' + badges[tier].cls;
     document.getElementById('resultBadge').textContent = badges[tier].label;
     document.getElementById('resultAmount').textContent = fmtAmt;
     document.getElementById('resultJobLabel').textContent = jobLabel(jobType) + ' · Snohomish County';
     document.getElementById('resultRange').innerHTML = `Typical range for your scope: <strong>${fmtLow} – ${fmtHigh}</strong>`;
     document.getElementById('resultMessage').textContent = messages[tier];
-
-    // summary chips
     buildSummaryChips();
-
-    // replace nudge: old system + major repair, OR high repair amount
     const nudge = document.getElementById('replaceNudge');
-    const nudgeCondition = isRepair(jobType) && (
-      (age === 'old' && bucket === 'major') ||
-      (jobType === 'ac-repair' && amount >= 2000) ||
-      (jobType === 'heat-repair' && amount >= 1500)
-    );
+    const nudgeCondition = isRepair(jobType) && ((age === 'old' && bucket === 'major') || (jobType === 'ac-repair' && amount >= 2000) || (jobType === 'heat-repair' && amount >= 1500));
     nudgeCondition ? nudge.classList.add('visible') : nudge.classList.remove('visible');
-
     setTimeout(() => { document.getElementById('gaugeMarker').style.left = pos + '%'; }, 120);
     revealResult();
-
     if (typeof gtag !== 'undefined') gtag('event', 'quote_checked', { job_type: jobType, tier, amount });
   }
 
@@ -769,111 +506,49 @@
     document.getElementById('summaryChips').innerHTML = chips.map(c => `<span class="summary-chip">${c}</span>`).join('');
   }
 
-  function revealResult() {
-    document.getElementById('toolCard').style.display = 'none';
-    document.getElementById('resultCard').classList.add('visible');
-    setProgress(100, '');
-  }
+  function revealResult() { document.getElementById('toolCard').style.display = 'none'; document.getElementById('resultCard').classList.add('visible'); setProgress(100, ''); }
 
   function submitLead() {
     const name = document.getElementById('fieldName').value.trim();
     const contact = document.getElementById('fieldContact').value.trim();
     const zip = document.getElementById('fieldZip').value.trim();
     if (!name || !contact) { alert('Please enter your name and a way to reach you.'); return; }
-
-    // Determine phone vs email
     const isPhone = /^[\d\s\(\)\-\+]{7,}$/.test(contact);
-
-    // Build quote range string for repair_range / replacement_range fields
     function getBand() {
       if (!S.amount) return null;
       if (S.bucket === 'unsure') return null;
       if (S.jobType === 'ac-install') return AC_INSTALL[S.size]?.[S.duct] || null;
-      if (S.jobType === 'furnace-install') {
-        const base = FURNACE_BASE[S.size]?.[S.efficiency];
-        const mod = DUCT_MOD[S.duct];
-        if (!base || !mod) return null;
-        return { low: base.low + mod.low, high: base.high + mod.high };
-      }
+      if (S.jobType === 'furnace-install') { const base = FURNACE_BASE[S.size]?.[S.efficiency]; const mod = DUCT_MOD[S.duct]; if (!base || !mod) return null; return { low: base.low + mod.low, high: base.high + mod.high }; }
       if (S.jobType === 'ac-repair') return AC_REPAIR[S.bucket]?.[S.age]?.[S.hours] || null;
       if (S.jobType === 'heat-repair') return HEAT_REPAIR[S.bucket]?.[S.age]?.[S.hours] || null;
       return null;
     }
-
     const band = getBand();
     const rangeStr = band ? `$${band.low.toLocaleString()} – $${band.high.toLocaleString()}` : 'Unable to determine';
-
-    // Tier label
     let tier = 'unknown';
-    if (band && S.amount) {
-      if (S.amount < band.low) tier = 'low';
-      else if (S.amount <= band.high) tier = 'fair';
-      else tier = 'high';
-    }
+    if (band && S.amount) { if (S.amount < band.low) tier = 'low'; else if (S.amount <= band.high) tier = 'fair'; else tier = 'high'; }
     if (S.bucket === 'unsure') tier = 'unsure';
-
-    // Map to existing Make/Sheets field schema
     const payload = {
-      // Contact fields — matches existing sheet columns
-      timestamp:   new Date().toISOString(),
-      name:        name,
-      phone:       isPhone ? contact : '',
-      email:       !isPhone ? contact : '',
-      zip:         zip,
-
-      // Lead classification
-      lead_type:   tier === 'high' ? 'hot' : tier === 'fair' ? 'warm' : 'cold',
-      source:      'quotecheck.us',
-
-      // System info — maps to system_type, problem, size, age
+      timestamp: new Date().toISOString(), name, phone: isPhone ? contact : '', email: !isPhone ? contact : '', zip,
+      lead_type: tier === 'high' ? 'hot' : tier === 'fair' ? 'warm' : 'cold', source: 'quotes.hvacinstallcosts.com',
       system_type: jobLabel(S.jobType),
-      problem:     S.bucket === 'unsure'
-                     ? 'Unknown — contractor diagnosis unclear'
-                     : S.bucket === 'minor'
-                       ? 'Minor component repair'
-                       : S.bucket === 'major'
-                         ? 'Major component repair'
-                         : S.jobType?.includes('install') ? 'New installation' : '',
-      size:        S.size ? { small:'Under 1,200 sq ft', medium:'1,200–2,400 sq ft', large:'Over 2,400 sq ft' }[S.size] : '',
-      age:         S.age  ? { young:'Under 10 years', mid:'10–15 years', old:'Over 15 years' }[S.age] : '',
-      city:        zip,   // city unknown, use zip as proxy
-
-      // Quote-specific fields — use repair_range for the quote they received
-      repair_range:      S.jobType?.includes('repair') ? `Submitted quote: $${S.amount?.toLocaleString()} | Fair range: ${rangeStr}` : '',
+      problem: S.bucket === 'unsure' ? 'Unknown — contractor diagnosis unclear' : S.bucket === 'minor' ? 'Minor component repair' : S.bucket === 'major' ? 'Major component repair' : S.jobType?.includes('install') ? 'New installation' : '',
+      size: S.size ? {small:'Under 1,200 sq ft',medium:'1,200–2,400 sq ft',large:'Over 2,400 sq ft'}[S.size] : '',
+      age: S.age ? {young:'Under 10 years',mid:'10–15 years',old:'Over 15 years'}[S.age] : '',
+      city: zip,
+      repair_range: S.jobType?.includes('repair') ? `Submitted quote: $${S.amount?.toLocaleString()} | Fair range: ${rangeStr}` : '',
       replacement_range: S.jobType?.includes('install') ? `Submitted quote: $${S.amount?.toLocaleString()} | Fair range: ${rangeStr}` : '',
-
-      // Recommendation — maps to recommendation field
       recommendation: (() => {
         if (tier === 'high') return `Quote of $${S.amount?.toLocaleString()} is above the typical range (${rangeStr}). Strong candidate for a second quote.`;
         if (tier === 'fair') return `Quote of $${S.amount?.toLocaleString()} is within the typical range (${rangeStr}). Second quote still worthwhile.`;
-        if (tier === 'low')  return `Quote of $${S.amount?.toLocaleString()} is below typical range (${rangeStr}). May be missing scope.`;
+        if (tier === 'low') return `Quote of $${S.amount?.toLocaleString()} is below typical range (${rangeStr}). May be missing scope.`;
         return `Quote amount $${S.amount?.toLocaleString()} — part unknown, diagnosis confirmation needed.`;
       })(),
-
-      // Extra context
-      notes: [
-        S.duct       ? `Ductwork: ${{ existing:'Good condition', modify:'Needs modification', none:'None/full install' }[S.duct]}` : '',
-        S.efficiency ? `Efficiency: ${{ standard:'Standard 80% AFUE', higheff:'High-efficiency 95%+', unsure:'Not specified' }[S.efficiency]}` : '',
-        S.hours      ? `After-hours call: ${S.hours === 'yes' ? 'Yes' : 'No'}` : '',
-      ].filter(Boolean).join(' | '),
-
-      contact_preference: isPhone ? 'Phone' : 'Email',
-      time_preference:    '',
+      notes: [S.duct ? `Ductwork: ${{existing:'Good condition',modify:'Needs modification',none:'None/full install'}[S.duct]}` : '', S.efficiency ? `Efficiency: ${{standard:'Standard 80% AFUE',higheff:'High-efficiency 95%+',unsure:'Not specified'}[S.efficiency]}` : '', S.hours ? `After-hours call: ${S.hours === 'yes' ? 'Yes' : 'No'}` : ''].filter(Boolean).join(' | '),
+      contact_preference: isPhone ? 'Phone' : 'Email', time_preference: ''
     };
-
-    fetch('https://hook.us2.make.com/7r51s0r8hg75tlw8hptoerh7gh1u1u4i', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).catch(err => console.error('Webhook error:', err));
-
-    document.getElementById('leadFormWrap').innerHTML = `
-      <div style="text-align:center;padding:24px 0;">
-        <div style="font-size:42px;margin-bottom:14px;">✅</div>
-        <div style="font-family:'Fraunces',serif;font-size:1.5rem;font-weight:700;color:var(--navy);margin-bottom:10px;">You're all set, ${name.split(' ')[0]}.</div>
-        <div style="font-size:14px;color:var(--navy-soft);line-height:1.75;">A local licensed contractor will reach out shortly to schedule your free second quote. No pressure, no commitment.</div>
-      </div>`;
-
+    fetch('https://hook.us2.make.com/7r51s0r8hg75tlw8hptoerh7gh1u1u4i', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) }).catch(err => console.error('Webhook error:', err));
+    document.getElementById('leadFormWrap').innerHTML = `<div style="text-align:center;padding:24px 0;"><div style="font-size:42px;margin-bottom:14px;">✅</div><div style="font-family:'Fraunces',serif;font-size:1.5rem;font-weight:700;color:var(--navy);margin-bottom:10px;">You're all set, ${name.split(' ')[0]}.</div><div style="font-size:14px;color:var(--navy-soft);line-height:1.75;">A local licensed contractor will reach out shortly to schedule your free second quote. No pressure, no commitment.</div></div>`;
     if (typeof gtag !== 'undefined') gtag('event', 'lead_submitted', { job_type: S.jobType, amount: S.amount });
   }
 
